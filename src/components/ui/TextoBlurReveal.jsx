@@ -83,7 +83,19 @@ export function TextoBlurReveal({
       return undefined
     }
 
-    return observarFrase(elementoTexto, () => definirVisivel(true), once)
+    const pararObservacao = observarFrase(elementoTexto, () => definirVisivel(true), once)
+
+    /* Garante a revelação dos textos já visíveis mesmo se o navegador atrasar o observer. */
+    const quadroInicial = window.requestAnimationFrame(() => {
+      const limitesTexto = elementoTexto.getBoundingClientRect()
+      const estaVisivel = limitesTexto.top < window.innerHeight && limitesTexto.bottom > 0
+      if (estaVisivel) definirVisivel(true)
+    })
+
+    return () => {
+      window.cancelAnimationFrame(quadroInicial)
+      pararObservacao()
+    }
   }, [inView, once, trigger])
 
   /* Não monta a frase quando o componente foi explicitamente desativado. */
