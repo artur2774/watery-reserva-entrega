@@ -1,111 +1,49 @@
+/* Base global clara, tipografia de sistema e controles consistentes entre telas. */
+@import "tailwindcss";
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-sans-serif, sans-serif;
+  color: #18334f;
+  background: #f7f9fc;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+* { box-sizing: border-box; }
+html { min-width: 320px; background: #f7f9fc; }
+body { min-width: 320px; min-height: 100vh; margin: 0; }
+button, input, select, textarea { font: inherit; }
+button, a, select { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #4c91ab; outline-offset: 3px; }
+a { color: inherit; text-decoration: none; }
+::selection { background: #c7e4eb; color: #102b49; }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
+/* Cada grafema desfocado entra em sequência depois que o texto chega ao viewport. */
+.texto-blur-reveal { white-space: normal; }
+.texto-blur-reveal > .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.texto-blur-palavra { display: inline-block; white-space: nowrap; }
+.texto-blur-caractere { display: inline-block; opacity: 0; filter: blur(12px); transform: translateY(10px); }
+.texto-blur-visivel .texto-blur-caractere { animation: spell-blur-reveal var(--duracao-caractere, .55s) cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(var(--atraso-inicial, 0s) + var(--indice-caractere, 0) * var(--atraso-caractere, .04s)); }
+.texto-blur-espaco { white-space: pre; }
 
-body {
-  margin: 0;
-}
+/* O contorno Spell UI percorre o perímetro do botão somente no hover ou foco. */
+.spell-flow-button { position: relative; isolation: isolate; }
+.spell-flow-conteudo { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: inherit; }
+.spell-flow-contorno { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.spell-flow-traco { fill: none; stroke-width: 1.5; stroke-dasharray: 6 4; stroke-dashoffset: 0; opacity: 0; transition: opacity 300ms ease; }
+.spell-flow-button:hover .spell-flow-traco, .spell-flow-button:focus-visible .spell-flow-traco { opacity: 1; animation: spell-flow-contorno 900ms linear infinite; }
+.secao-interativa { border-radius: 22px; transition: background-color 700ms ease, box-shadow 700ms ease, transform 700ms cubic-bezier(.22, 1, .36, 1); }
+.secao-interativa:hover { background-color: #ffffff45; box-shadow: 0 18px 55px #315c7610; }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+/* O Flow Button usa a trajetória pontilhada da referência Spell UI. */
+@keyframes spell-flow-contorno { to { stroke-dashoffset: -20; } }
+@keyframes spell-blur-reveal { from { opacity: 0; filter: blur(12px); transform: translateY(10px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* A configuração de movimento reduzido revela o texto sem atraso ou desfoque. */
+@media (prefers-reduced-motion: reduce) {
+  .texto-blur-caractere { opacity: 1; filter: none; transform: none; animation: none !important; }
+  .spell-flow-button:hover .spell-flow-traco, .spell-flow-button:focus-visible .spell-flow-traco { animation: none; }
+  .secao-interativa { transition: none; }
 }
