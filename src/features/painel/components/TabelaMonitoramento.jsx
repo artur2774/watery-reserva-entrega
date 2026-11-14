@@ -1,6 +1,6 @@
 /** Tabela de pontos da API com campos acessíveis e ações com Flow Button. */
-import { BotaoFluxo } from './ui/BotaoFluxo'
-import { TextoBlurReveal } from './ui/TextoBlurReveal'
+import { BotaoFluxo } from '../../../shared/components/ui/BotaoFluxo'
+import { TextoBlurReveal } from '../../../shared/components/ui/TextoBlurReveal'
 
 /**
  * Exibe os pontos remotos sem fabricar medições ou cadastros locais.

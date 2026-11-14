@@ -1,7 +1,7 @@
 /** Campo inspirado no Label Input Spell UI com label persistente e senha visível opcional. */
 import { useState } from 'react'
-import { BotaoFluxo } from './ui/BotaoFluxo'
-import { TextoBlurReveal } from './ui/TextoBlurReveal'
+import { BotaoFluxo } from '../../../shared/components/ui/BotaoFluxo'
+import { TextoBlurReveal } from '../../../shared/components/ui/TextoBlurReveal'
 
 /**
  * Mantém o rótulo visível e encaminha as alterações sem controlar dados da API.

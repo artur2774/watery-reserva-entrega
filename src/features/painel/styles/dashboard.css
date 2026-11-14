@@ -185,3 +185,17 @@ td small { margin-top: 5px; font-size: 10px; }
 @media (prefers-reduced-motion: reduce) {
   .painel-aplicacao .texto-blur-visivel .texto-blur-caractere { opacity: 1; filter: none; transform: none; animation: none; }
 }
+
+/* Contraste uniforme e controles azuis sólidos para o painel de telemetria. */
+.painel-aplicacao { background: #f5f9fd; color: #183b5d; }
+.painel-aplicacao::before { opacity: .35; background: radial-gradient(ellipse at 84% 8%, #dcecf8, transparent 40%), radial-gradient(ellipse at 12% 66%, #e4f1f9, transparent 38%); }
+.painel-aplicacao .texto-blur-reveal, .painel-aplicacao .texto-blur-caractere { color: inherit !important; }
+.painel-aplicacao .botao-adicionar, .painel-aplicacao .formulario-senha button, .painel-aplicacao .linha-acoes-api button, .painel-aplicacao .modal-actions .button-primary { border: 1px solid #145c9b; background: #145c9b; color: #fff; -webkit-text-fill-color: #fff; }
+.painel-aplicacao .botao-adicionar .texto-blur-reveal, .painel-aplicacao button .texto-blur-reveal { color: inherit !important; }
+.painel-aplicacao .resumo-comunidade { border-color: #d9e7f2; background: #fff; }
+.painel-aplicacao .status-badge { color: #205d49; -webkit-text-fill-color: #205d49; }
+.painel-aplicacao .status-badge.status-atencao { color: #795c1e; -webkit-text-fill-color: #795c1e; }
+.painel-aplicacao .status-badge.status-critico { color: #8e3938; -webkit-text-fill-color: #8e3938; }
+.painel-aplicacao .table-level i { background: #3d88c5; }
+.painel-aplicacao .campo-rotulo-flutuante { background: #fff; border-color: #c7d9e8; animation: none; }
+@media (prefers-reduced-motion: reduce) { .painel-aplicacao, .painel-aplicacao::before { animation: none; } }

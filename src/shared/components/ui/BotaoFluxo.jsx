@@ -12,6 +12,7 @@ function criarCaminhoArredondado(largura, altura) {
  * Mantém as propriedades nativas do botão e adiciona o traço animado da Spell UI.
  * @param {import('react').ButtonHTMLAttributes<HTMLButtonElement> & { children: import('react').ReactNode, corBorda?: string }} propriedades Texto e atributos do botão.
  */
+/** Renderiza um botão acessível com contorno animado no foco e hover. */
 export function BotaoFluxo({ children, className = '', corBorda = '#4d91a8', ...propriedades }) {
   const referenciaBotao = useRef(null)
   const [medidas, definirMedidas] = useState({ largura: 1, altura: 1 })

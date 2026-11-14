@@ -47,3 +47,25 @@ a { color: inherit; text-decoration: none; }
   .spell-flow-button:hover .spell-flow-traco, .spell-flow-button:focus-visible .spell-flow-traco { animation: none; }
   .secao-interativa { transition: none; }
 }
+
+/* Paleta sólida de alto contraste: o movimento Spell permanece somente como forma. */
+.texto-blur-reveal, .texto-blur-caractere, .texto-onda-gradiente, .texto-em-brilho {
+  background-image: none !important; background-clip: initial !important;
+  -webkit-background-clip: initial !important; color: inherit !important;
+  -webkit-text-fill-color: currentColor !important; animation: none !important;
+}
+.texto-blur-visivel .texto-blur-caractere { animation: spell-blur-reveal var(--duracao-caractere, .55s) cubic-bezier(.22, 1, .36, 1) both !important; }
+.logo-watery { display: inline-flex; align-items: center; gap: 9px; color: #135b9d; font-size: 22px; font-weight: 760; letter-spacing: -.055em; }
+.logo-watery svg { width: 34px; height: 34px; flex: none; }
+.marca-watery { display: inline-flex; align-items: center; border-radius: 12px; transition: transform 520ms cubic-bezier(.22, 1, .36, 1); }
+.marca-watery:hover { transform: translateY(-2px); }
+.painel-marca { display: flex; align-items: center; gap: 28px; }
+.ods-grade article { min-height: 160px; border: 1px solid #c8dced; border-radius: 18px; background: #fff; padding: 20px; box-shadow: 0 10px 30px #19476b0a; transition: transform 520ms cubic-bezier(.22, 1, .36, 1), box-shadow 520ms ease, border-color 520ms ease; }
+.ods-grade article:hover { transform: translateY(-4px); border-color: #73a9d1; box-shadow: 0 16px 36px #19476b16; }
+.ods-grade article > span { display: inline-flex; border-radius: 999px; background: #e8f3fc; padding: 6px 10px; color: #145a97; font-size: 10px; font-weight: 750; }
+.ods-grade article strong { display: block; margin-top: 17px; color: #173c60; font-size: 14px; }
+.ods-grade article p { margin: 8px 0 0; color: #526d86; font-size: 12px; line-height: 1.7; }
+@media (prefers-reduced-motion: reduce) {
+  .texto-blur-visivel .texto-blur-caractere { opacity: 1; filter: none; transform: none; animation: none !important; }
+  .marca-watery, .ods-grade article { transition: none; }
+}

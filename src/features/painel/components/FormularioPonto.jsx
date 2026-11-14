@@ -1,7 +1,7 @@
 /** Formulário Spell UI de cadastro e edição conforme o contrato da API Reserva. */
 import { useState } from 'react'
-import { BotaoFluxo } from './ui/BotaoFluxo'
-import { TextoBlurReveal } from './ui/TextoBlurReveal'
+import { BotaoFluxo } from '../../../shared/components/ui/BotaoFluxo'
+import { TextoBlurReveal } from '../../../shared/components/ui/TextoBlurReveal'
 import { CampoRotuloFlutuante } from './CampoRotuloFlutuante'
 
 /** Prepara valores de edição sem modificar o objeto retornado pelo serviço. */

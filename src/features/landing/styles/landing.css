@@ -11,39 +11,39 @@
   --movimento-suave: cubic-bezier(.22, 1, .36, 1);
 }
 
-/* Fundo claro com grandes nuvens cromáticas, sem recortes ou painéis coloridos. */
+/* Fundo branco com luz azul discreta para uma leitura profissional e arejada. */
 .pagina-inicial {
   position: relative;
   isolation: isolate;
   overflow: clip;
   min-height: 100vh;
-  background: #f7f9fc;
+  background: #f8fbff;
   color: var(--texto);
   scroll-behavior: smooth;
 }
 .pagina-inicial::before, .pagina-inicial::after { position: fixed; z-index: 0; inset: -18%; content: ''; pointer-events: none; }
 .pagina-inicial::before {
   background:
-    radial-gradient(ellipse at 15% 18%, #8cc9e568 0%, transparent 40%),
-    radial-gradient(ellipse at 83% 25%, #a6b8eb70 0%, transparent 40%),
-    radial-gradient(ellipse at 58% 82%, #83d5c86a 0%, transparent 42%),
-    radial-gradient(ellipse at 44% 48%, #b8d4ed82 0%, transparent 58%),
-    linear-gradient(135deg, #ffffff 6%, #eef6fb 49%, #f0f2fc 78%, #ffffff 100%);
+    radial-gradient(ellipse at 13% 18%, #c5e4f05c 0%, transparent 38%),
+    radial-gradient(ellipse at 86% 27%, #d1dafa66 0%, transparent 42%),
+    radial-gradient(ellipse at 57% 83%, #c8eee748 0%, transparent 42%),
+    radial-gradient(ellipse at 44% 48%, #dcebf65c 0%, transparent 58%),
+    linear-gradient(135deg, #f8fbff 4%, #f0f7fb 36%, #f1f3fb 67%, #f8fbff 100%);
   background-size: 125% 125%, 120% 120%, 130% 130%, 115% 115%, 100% 100%;
-  animation: fundo-claro-fluido 46s ease-in-out infinite alternate;
+  animation: fundo-claro-fluido 34s ease-in-out infinite alternate;
 }
 .pagina-inicial::after {
   inset: 0;
-  opacity: .34;
-  background-image: repeating-linear-gradient(118deg, transparent 0 84px, #548ab00a 85px 86px, transparent 87px 170px);
+  opacity: .22;
+  background-image: repeating-linear-gradient(118deg, transparent 0 84px, #4d88a00b 85px 86px, transparent 87px 170px);
   mask-image: linear-gradient(180deg, transparent, #000 16%, #000 76%, transparent);
-  animation: trama-agua 40s linear infinite;
+  animation: trama-agua 30s linear infinite;
 }
 .pagina-inicial > * { position: relative; z-index: 1; }
 
 /* Barra translúcida destaca os links com resposta visível ao ponteiro e ao teclado. */
 .navegacao { min-height: 74px; border-bottom: 1px solid #315f8338; background: #ffffffd9; box-shadow: 0 8px 28px #315c7610; backdrop-filter: blur(20px); }
-.navegacao-contexto { color: #42617d; font-size: 9px; font-weight: 750; letter-spacing: .16em; }
+.navegacao-contexto { color: #294d6d; font-size: 9px; font-weight: 750; letter-spacing: .16em; }
 .navegacao nav a { position: relative; border-radius: 999px; padding: 10px 13px; transition: background-color 320ms ease, box-shadow 320ms ease, transform 320ms ease; }
 .navegacao nav a::after { position: absolute; right: 13px; bottom: 5px; left: 13px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #348ca5, #677eb9); content: ''; transform: scaleX(0); transform-origin: left; transition: transform 320ms ease; }
 .navegacao nav a:hover, .navegacao nav a:focus-visible { background: #dceef5; box-shadow: 0 5px 16px #356d8c24; transform: translateY(-2px); }
@@ -57,7 +57,7 @@ html::-webkit-scrollbar-thumb { border: 2px solid #eef3f8; border-radius: 99px; 
 
 /* O componente Blur Reveal recebe um único gradiente lento por frase completa. */
 .pagina-inicial .texto-blur-reveal {
-  --gradiente-texto: linear-gradient(105deg, #173654 0%, #416b91 31%, #347f91 53%, #536a9f 74%, #173654 100%);
+  --gradiente-texto: linear-gradient(105deg, #173654 0%, #315c82 31%, #276d7b 53%, #536a9f 74%, #173654 100%);
   background-image: var(--gradiente-texto);
   background-size: 280% 100%; background-clip: text; color: transparent; -webkit-background-clip: text;
   animation: texto-spell-lento 20s ease-in-out infinite;
@@ -66,9 +66,9 @@ html::-webkit-scrollbar-thumb { border: 2px solid #eef3f8; border-radius: 99px; 
 .titulo-hero { max-width: 900px; font-size: clamp(44px, 7.2vw, 82px); }
 .pagina-inicial section h2 { max-width: 820px; margin-right: auto; margin-left: auto; font-size: clamp(32px, 4.6vw, 54px); }
 .hero { position: relative; min-height: min(780px, calc(100svh - 74px)); }
-.hero::before { position: absolute; top: 14%; left: 50%; width: min(900px, 96vw); height: 480px; border-radius: 50%; background: radial-gradient(ellipse, #7fc2dc68, #9baee54a 41%, transparent 72%); content: ''; filter: blur(38px); transform: translateX(-50%); animation: aura-clara 27s ease-in-out infinite alternate; }
+.hero::before { position: absolute; top: 14%; left: 50%; width: min(900px, 96vw); height: 480px; border-radius: 50%; background: radial-gradient(ellipse, #8ad5df32, #8296d52b 41%, transparent 72%); content: ''; filter: blur(38px); transform: translateX(-50%); animation: aura-clara 27s ease-in-out infinite alternate; }
 .hero-conteudo { position: relative; z-index: 1; }
-.pagina-inicial .texto-onda-gradiente { --gradiente-texto: linear-gradient(100deg, #176f83, #3778a6 40%, #656db1 73%, #176f83); background-image: var(--gradiente-texto); background-size: 280% 100%; }
+.pagina-inicial .texto-onda-gradiente { --gradiente-texto: linear-gradient(100deg, #173654, #276f88 40%, #5666a1 73%, #173654); background-image: var(--gradiente-texto); background-size: 280% 100%; }
 
 /* Blur Reveal original fica preservado e revela textos ao entrarem na área de leitura. */
 .pagina-inicial.revelacao-ativa [data-entrada] { filter: blur(9px); transition: filter 1.55s var(--movimento-suave); }
@@ -95,6 +95,7 @@ html::-webkit-scrollbar-thumb { border: 2px solid #eef3f8; border-radius: 99px; 
 
 /* Editorial separators and open lists provide structure without ornamental cards. */
 .secao-editorial, .secao-fluxo, .secao-api, .secao-decisoes, .secao-jornada { position: relative; }
+.secao-fluxo { border: 1px solid #47749a14; border-radius: 28px; background: linear-gradient(135deg, #edf5faad, #f4f7fc9c 54%, #eaf3f7ad); }
 .linha-gradiente-secao { display: block; width: min(100%, 820px); height: 1px; margin: 0 auto 38px; background: linear-gradient(90deg, transparent, #78b7c9 25%, #8baed0 48%, #aaa8d2 68%, #78b7c9 82%, transparent); transform-origin: center; filter: drop-shadow(0 0 7px #76afc83b); }
 .pagina-inicial .linha-gradiente-secao { background-clip: border-box; -webkit-background-clip: border-box; animation: none; }
 .texto-secao { max-width: 720px; margin-top: 20px; font-size: 14px; line-height: 1.9; }
@@ -105,7 +106,7 @@ html::-webkit-scrollbar-thumb { border: 2px solid #eef3f8; border-radius: 99px; 
 .etapas-visuais li > span { grid-row: span 2; font-size: 10px; font-weight: 750; }
 .etapas-visuais strong { font-size: 16px; font-weight: 650; }
 .etapas-visuais small { max-width: 270px; font-size: 12px; line-height: 1.8; }
-.secao-api { border-top: 1px solid #4264871c; border-bottom: 1px solid #4264871c; background: linear-gradient(110deg, #cce9ef51, #e1e5f448 50%, #d5eef04a); }
+.secao-api { border-top: 1px solid #42648720; border-bottom: 1px solid #42648720; background: linear-gradient(110deg, #e5f2f7, #e8edf8 50%, #e4f3f2); box-shadow: inset 0 1px #ffffffa8, inset 0 -1px #ffffffa8; }
 .secao-api .linha-gradiente-secao { margin-top: 0; }
 .conteudo-api h2 { max-width: 700px; }
 .descricao-api { max-width: 640px; font-size: 14px; line-height: 1.85; }
@@ -151,7 +152,36 @@ html::-webkit-scrollbar-thumb { border: 2px solid #eef3f8; border-radius: 99px; 
 .pagina-inicial .texto-onda-gradiente, .pagina-inicial .texto-em-brilho { animation: texto-spell-lento 20s ease-in-out infinite; }
 .pagina-inicial .texto-blur-caractere { background-image: var(--gradiente-texto, linear-gradient(90deg, #173654, #347f91, #536a9f)); background-size: 280% 100%; background-position: 0% 50%; background-clip: text; color: transparent; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: none; }
 .pagina-inicial .texto-blur-visivel .texto-blur-caractere { animation: spell-blur-reveal var(--duracao-caractere, .55s) cubic-bezier(.22, 1, .36, 1) both, texto-spell-lento 20s ease-in-out infinite; animation-delay: var(--atraso-caractere-individual, 0s), 0s; }
+
+/* Ajusta links e botões sobre as superfícies claras. */
+.navegacao .texto-blur-reveal { --gradiente-texto: linear-gradient(105deg, #173654, #416b91 38%, #347f91 68%, #173654); }
+.botao-primario .texto-onda-gradiente,
+.botao-secundario .texto-onda-gradiente,
+.botao-agua .texto-onda-gradiente { --gradiente-texto: linear-gradient(100deg, #123553, #226b82 48%, #374e83); }
+.pagina-inicial .texto-blur-caractere { background-image: var(--gradiente-texto, linear-gradient(90deg, #173654, #347f91, #536a9f)); }
+.secao-interativa:hover { background-color: #e8f2f880; box-shadow: 0 18px 55px #315c7612; }
+.etapas-visuais li:hover, .lista-decisoes li:hover { background: linear-gradient(135deg, #39b9d31a, #687fe21c); }
+.rodape { border-color: #4264871c; color: #49627a; }
+.rodape a, .link-textual { color: #315678; }
+.rodape a:hover, .link-textual:hover { color: #126e8b; }
 @media (prefers-reduced-motion: reduce) {
   .pagina-inicial .texto-blur-visivel .texto-blur-caractere { opacity: 1; filter: none; transform: none; animation: none; }
   .pagina-inicial .texto-onda-gradiente, .pagina-inicial .texto-em-brilho { animation: none; }
 }
+
+/* Interface predominantemente branca e azul, com cor uniforme em todos os textos. */
+.pagina-inicial { background: #f8fbff; color: #183b5d; }
+.pagina-inicial::before { background: radial-gradient(ellipse at 50% 13%, #e8f4fc 0%, transparent 50%), linear-gradient(180deg, #fbfdff 0%, #f4f9fd 100%); animation: none; }
+.pagina-inicial::after { opacity: .12; }
+.hero::before { animation: none; }
+.pagina-inicial .texto-blur-reveal, .pagina-inicial .texto-onda-gradiente, .pagina-inicial .texto-em-brilho { color: #183b5d !important; }
+.pagina-inicial .titulo-hero { color: #123e68; }
+.pagina-inicial .navegacao { border-color: #dce8f1; background: #ffffffed; }
+.pagina-inicial .botao-primario, .pagina-inicial .botao-agua { border-color: #145c9b; background: #145c9b; color: #fff; box-shadow: 0 8px 24px #145c9b26; }
+.pagina-inicial .botao-primario .texto-blur-reveal, .pagina-inicial .botao-agua .texto-blur-reveal { color: #fff !important; }
+.pagina-inicial .botao-secundario { border-color: #9bb8d0; background: #fff; color: #174d7d; }
+.pagina-inicial .secao-fluxo, .pagina-inicial .secao-api { border-color: #dce8f1; background: #eef6fc; }
+.pagina-inicial .secao-interativa:hover { background-color: #edf6fc; box-shadow: 0 18px 50px #174d7d10; }
+.pagina-inicial .marcador-secao, .pagina-inicial .sobretitulo { color: #17639c; }
+.pagina-inicial .linha-gradiente-secao { background: #bbd8ed; filter: none; }
+@media (prefers-reduced-motion: reduce) { .pagina-inicial::before, .pagina-inicial::after, .hero::before { animation: none; } }

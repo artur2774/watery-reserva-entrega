@@ -1,5 +1,5 @@
 /** Explica a origem remota e os limites do dado apresentado no painel. */
-import { TextoBlurReveal } from './ui/TextoBlurReveal'
+import { TextoBlurReveal } from '../../../shared/components/ui/TextoBlurReveal'
 
 /** Apresenta a informação da API com o mesmo efeito de entrada do painel. */
 export function AvisoDados() {

@@ -1,6 +1,7 @@
 /** Acesso HTTP à API da Reserva; nenhuma credencial é persistida neste módulo. */
 
-const CAMINHO_API = '/reserva/api'
+/** Prefixo HTTP configurável para apontar o cliente ao ambiente da equipe. */
+const CAMINHO_API = import.meta.env.VITE_API_BASE_URL || '/reserva/api'
 const USUARIO_API = 'reserva-web'
 const TEMPO_LIMITE_MS = 12000
 

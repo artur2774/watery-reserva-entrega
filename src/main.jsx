@@ -1,10 +1,11 @@
-/** Ponto de entrada React que monta a aplicação com verificações de desenvolvimento. */
+/** Entrada principal do React e carregamento do estilo compartilhado. */
 import { StrictMode } from 'react'
-import { createRoot as criarRaiz } from 'react-dom/client'
-import './index.css'
-import Aplicacao from './App.jsx'
+import { createRoot as criarRaizReact } from 'react-dom/client'
+import './shared/styles/base.css'
+import Aplicacao from './app/Aplicacao.jsx'
 
-criarRaiz(document.getElementById('root')).render(
+/** Inicializa a árvore de componentes com verificações do modo estrito. */
+criarRaizReact(document.getElementById('root')).render(
   <StrictMode>
     <Aplicacao />
   </StrictMode>,

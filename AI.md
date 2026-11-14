@@ -1,32 +1,29 @@
-# Registro de uso de Inteligência Artificial
+# Uso de Inteligência Artificial
 
-Este arquivo registra o apoio de IA durante a implementação. O grupo deve revisar este relato e complementá-lo com as interações e validações feitas por cada integrante antes da entrega.
+Este registro descreve o apoio de IA recebido para esta versão do protótipo. A equipe deve acrescentar as interações próprias dos integrantes antes da entrega final; este documento não substitui a revisão humana.
 
-## Ferramenta utilizada
+## Ferramentas
 
-- **ChatGPT Codex (OpenAI):** apoio para leitura da estrutura do projeto, implementação e revisão de React/JSX, organização de componentes e hooks, integração HTTP, correção visual, documentação e verificação de lint/build.
-- **Spell UI:** referência pública de interface para Blur Reveal, Label Input e Flow Button. Os exemplos foram adaptados ao React e aos estilos locais; os componentes não dependem do pacote Spell UI em runtime.
+- **ChatGPT Codex (OpenAI):** leitura dos requisitos dos PDFs e da estrutura existente, edição dos componentes React, identidade visual e documentação.
+- **Spell UI:** referência para os padrões de Blur Reveal, Flow Button e Label Input. O projeto contém adaptações locais desses padrões, sem dependência de runtime da Spell UI.
 
-## Interações representativas
+## Interação desta versão
 
-- Pedido para construir a aplicação Watery com React, Vite e JavaScript/JSX, usando o desafio CitizenTech e separando interface, regras e dados.
-- Pedido para manter Blur Reveal nos textos, aplicar Label Input aos campos, Flow Button aos botões e corrigir os textos duplicados e a seção de etapas.
-- Pedido para documentar no README o fluxo, os locais de edição e o status frente à rubrica mínima da disciplina.
-
-As respostas foram sugestões de implementação e documentação; não são evidência de validação dos requisitos acadêmicos nem de funcionamento da API remota.
+- Solicitação: desenvolver uma aplicação Watery profissional em React e Tailwind, com base no contexto da Reserva e nos requisitos de Front-end Design e Web Development; usar tons de azul e branco, logo própria, hovers e animações lentas, padrões Spell UI e textos sem gradientes.
+- A resposta adaptou o projeto existente, adicionou a marca SVG Watery e uma seção que explica os ODS relacionados ao projeto. Também ajustou o estilo para usar texto sólido e cores azuis.
 
 ## Aplicação no projeto
 
-- Organização da interface em páginas e componentes React reutilizáveis.
-- Implementação dos hooks `usePontosMonitorados` e `useTelemetriaReserva` para estado e lógica de interação.
-- Implementação de `src/services/apiReserva.js` para GET, POST, PATCH e DELETE conforme o contrato informado pela equipe.
-- Ajustes no Blur Reveal, no gradiente e no markup acessível para impedir que os rótulos fiquem visualmente duplicados.
-- Documentação do fluxo e da rubrica em `README.md`.
+- `src/shared/components/LogoWatery.jsx`: marca vetorial própria, criada como componente React.
+- `src/features/landing/PaginaInicial.jsx`: inclusão da marca e da explicação de ODS 6, 10, 11 e 13, conforme o documento de contexto da Reserva.
+- `src/features/painel/PainelComunidade.jsx`: presença da marca no cabeçalho do painel.
+- `src/shared/styles/` e `src/features/*/styles/`: paleta de alto contraste, superfícies claras e interações de hover.
+- A arquitetura foi reorganizada por função do sistema, mantendo a separação entre tela, estado e acesso à API.
 
 ## Validação e análise crítica
 
-- **Verificações executadas:** `pnpm lint` e `pnpm build` concluíram com sucesso após as alterações.
-- **Limitação observada:** a API externa não pôde ser acessada neste ambiente; nenhum resultado de CRUD remoto é declarado como validado.
-- **Revisão humana necessária:** confirmar o comportamento com credenciais de teste, conferir conteúdo e rubrica oficial com os professores, revisar mensagens e validar a interface em dispositivos reais.
-- **Benefícios:** acelera a exploração de alternativas e a criação de estrutura inicial e documentação.
-- **Limitações:** uma resposta pode conter regressões visuais, pressupostos incorretos ou código que compila sem refletir fielmente a rubrica; por isso, o grupo deve revisar, executar e compreender o código antes de entregá-lo.
+- Os PDFs e o código-fonte foram lidos para distinguir o briefing e as sugestões de produto dos critérios obrigatórios das disciplinas.
+- **Verificações executadas:** `pnpm lint` e `pnpm build` concluíram com sucesso após a reorganização.
+- **Não foram executados testes automatizados nem validação remota da API nesta versão.**
+- O CRUD documentado no serviço continua dependendo da API e credenciais da equipe; não afirmamos que as operações remotas tenham sido validadas.
+- IA acelerou a leitura e a produção de alterações visuais. As respostas podem carregar pressupostos ou introduzir regressões; a equipe deve revisar, executar a aplicação e confirmar os requisitos antes da entrega.

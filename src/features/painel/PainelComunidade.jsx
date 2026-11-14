@@ -1,14 +1,15 @@
 /** Painel ligado à telemetria pública e ao CRUD protegido da API Reserva. */
 import { useState } from 'react'
-import { AvisoDados } from '../components/AvisoDados'
-import { CampoRotuloFlutuante } from '../components/CampoRotuloFlutuante'
-import { FormularioPonto } from '../components/FormularioPonto'
-import { TabelaMonitoramento } from '../components/TabelaMonitoramento'
-import { BotaoFluxo } from '../components/ui/BotaoFluxo'
-import { TextoBlurReveal } from '../components/ui/TextoBlurReveal'
-import { usePontosMonitorados } from '../hooks/usePontosMonitorados'
-import { useTelemetriaReserva } from '../hooks/useTelemetriaReserva'
-import '../styles/dashboard.css'
+import { AvisoDados } from './components/AvisoDados'
+import { CampoRotuloFlutuante } from './components/CampoRotuloFlutuante'
+import { FormularioPonto } from './components/FormularioPonto'
+import { TabelaMonitoramento } from './components/TabelaMonitoramento'
+import { BotaoFluxo } from '../../shared/components/ui/BotaoFluxo'
+import { TextoBlurReveal } from '../../shared/components/ui/TextoBlurReveal'
+import { LogoWatery } from '../../shared/components/LogoWatery'
+import { usePontosMonitorados } from './hooks/usePontosMonitorados'
+import { useTelemetriaReserva } from './hooks/useTelemetriaReserva'
+import './styles/dashboard.css'
 
 /** Apresenta as últimas leituras e administra pontos pela API da equipe. */
 export function PainelComunidade({ aoVoltar }) {
@@ -72,9 +73,9 @@ export function PainelComunidade({ aoVoltar }) {
   return (
     <div className="painel-aplicacao">
       <header className="painel-navegacao">
-        <BotaoFluxo type="button" onClick={aoVoltar}>
+        <div className="painel-marca"><LogoWatery /><BotaoFluxo type="button" onClick={aoVoltar}>
           <TextoBlurReveal as="span">Voltar à apresentação</TextoBlurReveal>
-        </BotaoFluxo>
+        </BotaoFluxo></div>
         <TextoBlurReveal as="span">PAINEL WATERY · API REST</TextoBlurReveal>
       </header>
 
