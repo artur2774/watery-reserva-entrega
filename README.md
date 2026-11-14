@@ -43,7 +43,7 @@ Aplicação web acadêmica da Global Solution CitizenTech: uma landing page apre
 | API externa com CRUD | Implementado; validação remota pendente | GET/POST/PATCH/DELETE estão em `apiReserva.js`; validar credenciais e respostas com o servidor disponível. |
 | Funcionalidade ligada ao tema | MVP implementado | Leitura da reserva e gestão de pontos monitorados. |
 | Git com no mínimo 15 commits significativos | Pendente | O histórico remoto conferido contém apenas o scaffold inicial até o início destas alterações. Registrar mudanças reais em commits semânticos, sem fracionar artificialmente. |
-| Repositório privado e acessível aos professores | Pendente de configuração | A URL configurada é `https://github.com/joao-jps/watery-reserva`; confirmar a visibilidade privada e adicionar os professores com acesso de escrita. |
+| Repositório privado e acessível aos professores | Parcial | O repositório `https://github.com/joao-jps/watery-reserva` está privado; ainda é preciso conceder acesso de escrita aos professores e confirmar o acesso deles. |
 | README com execução e descrição | Atendido neste arquivo | Este documento descreve fluxo, locais de edição e comandos. |
 | `AI.md` na raiz | Parcial | Arquivo existe; o grupo precisa completar prompts reais, ferramentas, trechos afetados, validação e análise crítica. |
 | Deploy e ZIP | Pendente | Configuração de rewrite Vercel existe; publicar, validar e gerar o ZIP final ainda são necessários. |
