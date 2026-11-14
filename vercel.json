@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/reserva/api/(.*)",
+      "destination": "https://184.192.182.39/reserva/api/$1"
+    }
+  ]
+}
