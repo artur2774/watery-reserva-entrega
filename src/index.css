@@ -32,10 +32,10 @@ a { color: inherit; text-decoration: none; }
 .spell-flow-button { position: relative; isolation: isolate; }
 .spell-flow-conteudo { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: inherit; }
 .spell-flow-contorno { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.spell-flow-traco { fill: none; stroke-width: 1.5; stroke-dasharray: 6 4; stroke-dashoffset: 0; opacity: 0; transition: opacity 300ms ease; }
-.spell-flow-button:hover .spell-flow-traco, .spell-flow-button:focus-visible .spell-flow-traco { opacity: 1; animation: spell-flow-contorno 900ms linear infinite; }
-.secao-interativa { border-radius: 22px; transition: background-color 700ms ease, box-shadow 700ms ease, transform 700ms cubic-bezier(.22, 1, .36, 1); }
-.secao-interativa:hover { background-color: #ffffff45; box-shadow: 0 18px 55px #315c7610; }
+.spell-flow-traco { fill: none; stroke-width: 1.5; stroke-dasharray: 6 4; stroke-dashoffset: 0; opacity: 0; transition: opacity 240ms ease; }
+.spell-flow-button:hover .spell-flow-traco, .spell-flow-button:focus-visible .spell-flow-traco { opacity: 1; animation: spell-flow-contorno 720ms linear infinite; }
+.secao-interativa { border-radius: 22px; transition: background-color 520ms ease, box-shadow 520ms ease, transform 520ms cubic-bezier(.22, 1, .36, 1); }
+.secao-interativa:hover { background-color: #eaf4fa80; box-shadow: 0 18px 55px #315c7618; }
 
 /* O Flow Button usa a trajetória pontilhada da referência Spell UI. */
 @keyframes spell-flow-contorno { to { stroke-dashoffset: -20; } }
