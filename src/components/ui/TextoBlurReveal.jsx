@@ -120,11 +120,13 @@ export function TextoBlurReveal({
           <span key={`palavra-${indicePalavra}`} aria-hidden="true" className="texto-blur-palavra">
             {separarGrafemas(palavra).map((grafema, indiceGrafema) => {
               const indiceCaractere = indiceSequencial++
+              const atrasoGrafema = delay + indiceCaractere * atrasoEntreCaracteres
+
               return (
                 <span
                   key={`grafema-${indicePalavra}-${indiceGrafema}`}
                   className="texto-blur-caractere"
-                  style={{ '--indice-caractere': indiceCaractere }}
+                  style={{ '--indice-caractere': indiceCaractere, '--atraso-caractere-individual': `${atrasoGrafema}s` }}
                 >
                   {grafema}
                 </span>

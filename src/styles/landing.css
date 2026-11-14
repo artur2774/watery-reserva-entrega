@@ -53,7 +53,8 @@ html::-webkit-scrollbar-thumb { border: 2px solid #eef3f8; border-radius: 99px; 
 
 /* O componente Blur Reveal recebe um único gradiente lento por frase completa. */
 .pagina-inicial .texto-blur-reveal {
-  background-image: linear-gradient(105deg, #173654 0%, #416b91 31%, #347f91 53%, #536a9f 74%, #173654 100%);
+  --gradiente-texto: linear-gradient(105deg, #173654 0%, #416b91 31%, #347f91 53%, #536a9f 74%, #173654 100%);
+  background-image: var(--gradiente-texto);
   background-size: 280% 100%; background-clip: text; color: transparent; -webkit-background-clip: text;
   animation: texto-spell-lento 24s ease-in-out infinite;
 }
@@ -63,14 +64,14 @@ html::-webkit-scrollbar-thumb { border: 2px solid #eef3f8; border-radius: 99px; 
 .hero { position: relative; min-height: min(780px, calc(100svh - 74px)); }
 .hero::before { position: absolute; top: 14%; left: 50%; width: min(900px, 96vw); height: 480px; border-radius: 50%; background: radial-gradient(ellipse, #8acbd446, #9baee52b 41%, transparent 72%); content: ''; filter: blur(38px); transform: translateX(-50%); animation: aura-clara 32s ease-in-out infinite alternate; }
 .hero-conteudo { position: relative; z-index: 1; }
-.texto-onda-gradiente { background-image: linear-gradient(100deg, #176f83, #3778a6 40%, #656db1 73%, #176f83); background-size: 280% 100%; }
+.pagina-inicial .texto-onda-gradiente { --gradiente-texto: linear-gradient(100deg, #176f83, #3778a6 40%, #656db1 73%, #176f83); background-image: var(--gradiente-texto); background-size: 280% 100%; }
 
 /* Blur Reveal original fica preservado e revela textos ao entrarem na área de leitura. */
 .pagina-inicial.revelacao-ativa [data-entrada] { filter: blur(9px); transition: filter 1.55s var(--movimento-suave); }
 .pagina-inicial.revelacao-ativa [data-entrada].texto-revelado { filter: blur(0); }
 .sobretitulo, .marcador-secao { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-size: 9px; font-weight: 750; letter-spacing: .17em; }
 .marcador-secao { margin-bottom: 20px; }
-.texto-em-brilho { background-image: linear-gradient(105deg, #226c7d 10%, #4b86ad 39%, #737caf 50%, #4a8d91 65%, #226c7d 92%); background-size: 280% 100%; }
+.pagina-inicial .texto-em-brilho { --gradiente-texto: linear-gradient(105deg, #226c7d 10%, #4b86ad 39%, #737caf 50%, #4a8d91 65%, #226c7d 92%); background-image: var(--gradiente-texto); background-size: 280% 100%; }
 .ponto-agua { width: 7px; height: 7px; border-radius: 50%; background: #55aaba; box-shadow: 0 0 0 5px #55aaba20, 0 0 20px #55aaba70; }
 .pagina-inicial .ponto-agua { background-image: none; background-clip: border-box; color: initial; -webkit-text-fill-color: initial; animation: none; }
 .descricao-hero { max-width: 660px; font-size: clamp(15px, 1.6vw, 19px); line-height: 1.8; }
@@ -144,8 +145,8 @@ html::-webkit-scrollbar-thumb { border: 2px solid #eef3f8; border-radius: 99px; 
 
 /* Anima somente os grafemas e faz cada um herdar a cor do gradiente da frase. */
 .pagina-inicial .texto-onda-gradiente, .pagina-inicial .texto-em-brilho { animation: texto-spell-lento 24s ease-in-out infinite; }
-.pagina-inicial .texto-blur-caractere { background-image: inherit; background-size: inherit; background-position: inherit; background-clip: text; color: transparent; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: none; }
-.pagina-inicial .texto-blur-visivel .texto-blur-caractere { animation: spell-blur-reveal var(--duracao-caractere, .55s) cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(var(--atraso-inicial, 0s) + var(--indice-caractere, 0) * var(--atraso-caractere, .04s)); }
+.pagina-inicial .texto-blur-caractere { background-image: var(--gradiente-texto, linear-gradient(90deg, #173654, #347f91, #536a9f)); background-size: 280% 100%; background-position: 0% 50%; background-clip: text; color: transparent; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: none; }
+.pagina-inicial .texto-blur-visivel .texto-blur-caractere { animation: spell-blur-reveal var(--duracao-caractere, .55s) cubic-bezier(.22, 1, .36, 1) both, texto-spell-lento 24s ease-in-out infinite; animation-delay: var(--atraso-caractere-individual, 0s), 0s; }
 @media (prefers-reduced-motion: reduce) {
   .pagina-inicial .texto-blur-visivel .texto-blur-caractere { opacity: 1; filter: none; transform: none; animation: none; }
   .pagina-inicial .texto-onda-gradiente, .pagina-inicial .texto-em-brilho { animation: none; }

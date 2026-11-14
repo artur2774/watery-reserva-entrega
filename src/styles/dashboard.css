@@ -16,7 +16,8 @@
 
 /* Um único gradiente lento por frase evita a sobreposição de texto em botões. */
 .painel-aplicacao .texto-blur-reveal {
-  background-image: linear-gradient(105deg, #183650 0%, #4c7291 30%, #367b8d 54%, #596b9e 76%, #183650 100%);
+  --gradiente-texto: linear-gradient(105deg, #183650 0%, #4c7291 30%, #367b8d 54%, #596b9e 76%, #183650 100%);
+  background-image: var(--gradiente-texto);
   background-size: 280% 100%; background-clip: text; color: transparent; -webkit-background-clip: text;
   animation: texto-painel-spell 25s ease-in-out infinite;
 }
@@ -179,8 +180,8 @@ td small { margin-top: 5px; font-size: 10px; }
 }
 
 /* Prioriza o desfoque de entrada nas letras sem interromper o gradiente do texto pai. */
-.painel-aplicacao .texto-blur-caractere { background-image: inherit; background-size: inherit; background-position: inherit; background-clip: text; color: transparent; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: none; }
-.painel-aplicacao .texto-blur-visivel .texto-blur-caractere { animation: spell-blur-reveal var(--duracao-caractere, .55s) cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(var(--atraso-inicial, 0s) + var(--indice-caractere, 0) * var(--atraso-caractere, .04s)); }
+.painel-aplicacao .texto-blur-caractere { background-image: var(--gradiente-texto, linear-gradient(90deg, #183650, #367b8d, #596b9e)); background-size: 280% 100%; background-position: 0% 50%; background-clip: text; color: transparent; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: none; }
+.painel-aplicacao .texto-blur-visivel .texto-blur-caractere { animation: spell-blur-reveal var(--duracao-caractere, .55s) cubic-bezier(.22, 1, .36, 1) both, texto-painel-spell 25s ease-in-out infinite; animation-delay: var(--atraso-caractere-individual, 0s), 0s; }
 @media (prefers-reduced-motion: reduce) {
   .painel-aplicacao .texto-blur-visivel .texto-blur-caractere { opacity: 1; filter: none; transform: none; animation: none; }
 }
