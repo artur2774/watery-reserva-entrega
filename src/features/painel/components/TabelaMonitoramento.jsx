@@ -1,6 +1,5 @@
 /** Tabela de pontos da API com campos acessíveis e ações com Flow Button. */
 import { BotaoFluxo } from '../../../shared/components/ui/BotaoFluxo'
-import { TextoBlurReveal } from '../../../shared/components/ui/TextoBlurReveal'
 
 /**
  * Exibe os pontos remotos sem fabricar medições ou cadastros locais.
@@ -8,7 +7,7 @@ import { TextoBlurReveal } from '../../../shared/components/ui/TextoBlurReveal'
  */
 export function TabelaMonitoramento({ pontos, carregando = false, aoEditar, aoRemover }) {
   if (carregando) {
-    return <TextoBlurReveal as="p" className="empty-state" role="status">Consultando os pontos na API…</TextoBlurReveal>
+    return <p className="empty-state" role="status">Consultando os pontos na API…</p>
   }
 
   /* Descreve cada coluna e mantém ações próximas ao ponto que modificam. */
@@ -17,28 +16,28 @@ export function TabelaMonitoramento({ pontos, carregando = false, aoEditar, aoRe
       <table>
         <thead>
           <tr>
-            <th><TextoBlurReveal as="span">Identificação</TextoBlurReveal></th>
-            <th><TextoBlurReveal as="span">Dispositivo</TextoBlurReveal></th>
-            <th><TextoBlurReveal as="span">Capacidade útil</TextoBlurReveal></th>
-            <th><TextoBlurReveal as="span">Ações</TextoBlurReveal></th>
+            <th>Identificação</th>
+            <th>Dispositivo</th>
+            <th>Capacidade útil</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           {pontos.map((ponto) => (
             <tr key={ponto.id}>
               <td>
-                <TextoBlurReveal as="strong">{ponto.nome}</TextoBlurReveal>
-                <TextoBlurReveal as="small">{ponto.id}</TextoBlurReveal>
+                <strong>{ponto.nome}</strong>
+                <small>{ponto.id}</small>
               </td>
-              <td><TextoBlurReveal as="span">{ponto.deviceId || 'Indisponível'}</TextoBlurReveal></td>
-              <td><TextoBlurReveal as="span">{ponto.capacidadeUtilL == null ? 'Indisponível' : `${ponto.capacidadeUtilL} L`}</TextoBlurReveal></td>
+              <td>{ponto.deviceId || 'Indisponível'}</td>
+              <td>{ponto.capacidadeUtilL == null ? 'Indisponível' : `${ponto.capacidadeUtilL} L`}</td>
               <td>
                 <div className="row-actions">
                   <BotaoFluxo type="button" onClick={() => aoEditar(ponto)}>
-                    <TextoBlurReveal as="span">Editar</TextoBlurReveal>
+                    Editar
                   </BotaoFluxo>
                   <BotaoFluxo type="button" onClick={() => aoRemover(ponto)}>
-                    <TextoBlurReveal as="span">Remover</TextoBlurReveal>
+                    Remover
                   </BotaoFluxo>
                 </div>
               </td>
@@ -47,7 +46,7 @@ export function TabelaMonitoramento({ pontos, carregando = false, aoEditar, aoRe
         </tbody>
       </table>
       {!pontos.length && (
-        <TextoBlurReveal as="p" className="empty-state">A API ainda não tem pontos cadastrados.</TextoBlurReveal>
+        <p className="empty-state">A API ainda não tem pontos cadastrados.</p>
       )}
     </div>
   )

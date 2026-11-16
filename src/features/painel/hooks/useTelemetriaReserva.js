@@ -5,6 +5,7 @@ import { buscarTelemetriaReserva } from '../services/apiReserva'
 /** Mantém a última leitura em estado e atualiza ao montar ou por solicitação. */
 export function useTelemetriaReserva() {
   const [telemetria, definirTelemetria] = useState(null)
+  const [historico, definirHistorico] = useState([])
   const [carregandoTelemetria, definirCarregandoTelemetria] = useState(true)
   const [erroTelemetria, definirErroTelemetria] = useState('')
 
@@ -14,7 +15,12 @@ export function useTelemetriaReserva() {
     definirErroTelemetria('')
 
     try {
-      definirTelemetria(await buscarTelemetriaReserva())
+      const leitura = await buscarTelemetriaReserva()
+      definirTelemetria(leitura)
+      definirHistorico((leiturasAtuais) => {
+        if (leiturasAtuais.some(({ timestamp }) => timestamp === leitura.timestamp)) return leiturasAtuais
+        return [leitura, ...leiturasAtuais].slice(0, 8)
+      })
     } catch {
       definirErroTelemetria('Não foi possível obter a leitura. Confira a conexão com a API e atualize.')
     } finally {
@@ -28,5 +34,5 @@ export function useTelemetriaReserva() {
     return () => window.clearTimeout(temporizadorInicial)
   }, [atualizarTelemetria])
 
-  return { telemetria, carregandoTelemetria, erroTelemetria, atualizarTelemetria }
+  return { telemetria, historico, carregandoTelemetria, erroTelemetria, atualizarTelemetria }
 }

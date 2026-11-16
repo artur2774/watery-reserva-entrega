@@ -28,10 +28,14 @@ async function requisitarComLimite(caminho, opcoes) {
  * @returns {HeadersInit} Cabeçalhos HTTP sem armazenar a credencial.
  */
 function criarCabecalhosAutenticados(senha) {
+  // Codifica UTF-8 antes de Base64 para aceitar senhas com caracteres acentuados.
+  const credenciais = new window.TextEncoder().encode(`${USUARIO_API}:${senha}`)
+  const credenciaisBinarias = Array.from(credenciais, (byte) => String.fromCharCode(byte)).join('')
+
   return {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Basic ${window.btoa(`${USUARIO_API}:${senha}`)}`,
+    Authorization: `Basic ${window.btoa(credenciaisBinarias)}`,
   }
 }
 

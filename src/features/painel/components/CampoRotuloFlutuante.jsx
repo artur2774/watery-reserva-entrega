@@ -1,7 +1,6 @@
 /** Campo inspirado no Label Input Spell UI com label persistente e senha visível opcional. */
 import { useState } from 'react'
 import { BotaoFluxo } from '../../../shared/components/ui/BotaoFluxo'
-import { TextoBlurReveal } from '../../../shared/components/ui/TextoBlurReveal'
 
 /**
  * Mantém o rótulo visível e encaminha as alterações sem controlar dados da API.
@@ -33,7 +32,7 @@ export function CampoRotuloFlutuante({
   return (
     <div className={`campo-rotulo-flutuante ${somenteLeitura ? 'campo-somente-leitura' : ''} ${className}`.trim()}>
       <label htmlFor={id} className="campo-rotulo-texto">
-        <TextoBlurReveal as="span">{rotulo}</TextoBlurReveal>
+        {rotulo}
       </label>
       <div className="campo-rotulo-entrada">
         <input
@@ -58,7 +57,7 @@ export function CampoRotuloFlutuante({
             aria-label={senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'}
             aria-pressed={senhaVisivel}
           >
-            <TextoBlurReveal as="span">{senhaVisivel ? 'Ocultar' : 'Mostrar'}</TextoBlurReveal>
+            {senhaVisivel ? 'Ocultar' : 'Mostrar'}
           </BotaoFluxo>
         )}
       </div>

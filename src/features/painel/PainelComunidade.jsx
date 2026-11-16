@@ -4,6 +4,8 @@ import { AvisoDados } from './components/AvisoDados'
 import { CampoRotuloFlutuante } from './components/CampoRotuloFlutuante'
 import { FormularioPonto } from './components/FormularioPonto'
 import { TabelaMonitoramento } from './components/TabelaMonitoramento'
+import { MedidorNivel } from './components/MedidorNivel'
+import { HistoricoLeituras } from './components/HistoricoLeituras'
 import { BotaoFluxo } from '../../shared/components/ui/BotaoFluxo'
 import { TextoBlurReveal } from '../../shared/components/ui/TextoBlurReveal'
 import { LogoWatery } from '../../shared/components/LogoWatery'
@@ -19,7 +21,7 @@ export function PainelComunidade({ aoVoltar }) {
   const [pontoEmEdicao, definirPontoEmEdicao] = useState(null)
   const [aviso, definirAviso] = useState('')
   const [salvandoPonto, definirSalvandoPonto] = useState(false)
-  const { telemetria, carregandoTelemetria, erroTelemetria, atualizarTelemetria } = useTelemetriaReserva()
+  const { telemetria, historico, carregandoTelemetria, erroTelemetria, atualizarTelemetria } = useTelemetriaReserva()
   const estadoPontos = usePontosMonitorados(senha)
   const { pontos, carregandoPontos, erroPontos, carregarPontos, salvarPonto, removerPonto, limparPontos } = estadoPontos
 
@@ -60,7 +62,7 @@ export function PainelComunidade({ aoVoltar }) {
   const exibirValor = (valor, unidade = '') => valor == null ? 'Indisponível' : `${valor}${unidade}`
   const rotuloEstado = telemetria?.estado === 'invalido'
     ? 'Leitura inválida'
-    : telemetria?.estado ?? 'Indisponível'
+    : telemetria?.estado === 'normal' ? 'Normal' : telemetria?.estado ?? 'Indisponível'
   const valoresResumo = [
     { rotulo: 'Volume útil', valor: exibirValor(telemetria?.volumeUtilL, ' L') },
     { rotulo: 'Autonomia', valor: exibirValor(telemetria?.autonomiaH, ' h') },
@@ -68,54 +70,58 @@ export function PainelComunidade({ aoVoltar }) {
     { rotulo: 'Vazão de saída', valor: exibirValor(telemetria?.vazaoSaidaLh, ' L/h') },
     { rotulo: 'Estado', valor: rotuloEstado },
   ]
+  const pontoDoDispositivo = pontos.find(({ deviceId }) => deviceId === telemetria?.deviceId)
 
   /* Reúne telemetria, aviso de origem dos dados e gestão de pontos. */
   return (
     <div className="painel-aplicacao">
       <header className="painel-navegacao">
         <div className="painel-marca"><LogoWatery /><BotaoFluxo type="button" onClick={aoVoltar}>
-          <TextoBlurReveal as="span">Voltar à apresentação</TextoBlurReveal>
+          Voltar à apresentação
         </BotaoFluxo></div>
-        <TextoBlurReveal as="span">PAINEL WATERY · API REST</TextoBlurReveal>
+        <span>PAINEL WATERY API REST</span>
       </header>
 
       <main className="painel-conteudo">
         <section className="painel-abertura">
-          <TextoBlurReveal as="p">RESERVA PRINCIPAL · RESERVA-001</TextoBlurReveal>
+          <p>RESERVA PRINCIPAL RESERVA-001</p>
           <TextoBlurReveal as="h1">Leitura e pontos monitorados</TextoBlurReveal>
-          <TextoBlurReveal as="span">Telemetria pública da reserva e cadastro de pontos pela API da equipe.</TextoBlurReveal>
+          <span>Telemetria pública da reserva e cadastro de pontos pela API da equipe.</span>
           <BotaoFluxo className="botao-adicionar" type="button" onClick={atualizarTelemetria} disabled={carregandoTelemetria}>
-            <TextoBlurReveal as="span">{carregandoTelemetria ? 'Atualizando…' : 'Atualizar leitura'}</TextoBlurReveal>
+            {carregandoTelemetria ? 'Atualizando…' : 'Atualizar leitura'}
           </BotaoFluxo>
         </section>
 
         <section className="resumo-comunidade secao-interativa" aria-labelledby="titulo-leitura" aria-live="polite">
           <div className="titulo-secao-painel">
             <div>
-              <TextoBlurReveal as="p">TELEMETRIA SEM LOGIN</TextoBlurReveal>
+              <p>TELEMETRIA SEM LOGIN</p>
               <TextoBlurReveal as="h2" id="titulo-leitura">Última leitura</TextoBlurReveal>
             </div>
             {telemetria?.timestamp && (
-              <TextoBlurReveal as="span">{new Date(telemetria.timestamp).toLocaleString('pt-BR')}</TextoBlurReveal>
+              <span>{new Date(telemetria.timestamp).toLocaleString('pt-BR')}</span>
             )}
           </div>
-          {erroTelemetria && <TextoBlurReveal as="p" className="form-error" role="alert">{erroTelemetria}</TextoBlurReveal>}
+          {erroTelemetria && <p className="form-error" role="alert">{erroTelemetria}</p>}
           <dl>
             {valoresResumo.map(({ rotulo, valor }) => (
               <div key={rotulo}>
-                <TextoBlurReveal as="dt">{rotulo}</TextoBlurReveal>
-                <TextoBlurReveal as="dd">{carregandoTelemetria ? 'Carregando…' : valor}</TextoBlurReveal>
+                <dt>{rotulo}</dt>
+                <dd>{carregandoTelemetria ? 'Carregando…' : valor}</dd>
               </div>
             ))}
           </dl>
         </section>
+
+        <MedidorNivel volume={telemetria?.volumeUtilL} capacidade={pontoDoDispositivo?.capacidadeUtilL} />
+        <HistoricoLeituras leituras={historico} />
 
         <AvisoDados />
 
         <section className="secao-pontos secao-interativa" id="pontos">
           <div className="titulo-secao-painel">
             <div>
-              <TextoBlurReveal as="p">GESTÃO DE PONTOS · HTTP BASIC</TextoBlurReveal>
+              <p>GESTÃO DE PONTOS HTTP BASIC</p>
               <TextoBlurReveal as="h2">Pontos monitorados</TextoBlurReveal>
             </div>
             <BotaoFluxo
@@ -124,13 +130,13 @@ export function PainelComunidade({ aoVoltar }) {
               disabled={!senha}
               onClick={() => { definirPontoEmEdicao(null); definirFormularioAberto(true) }}
             >
-              <TextoBlurReveal as="span">Cadastrar ponto</TextoBlurReveal>
+              Cadastrar ponto
             </BotaoFluxo>
           </div>
 
           {!senha ? (
             <form className="formulario-senha" onSubmit={autenticar}>
-              <TextoBlurReveal as="p">A senha é fornecida pela equipe e fica somente na memória desta sessão.</TextoBlurReveal>
+              <p>A senha é fornecida pela equipe e fica somente na memória desta sessão.</p>
               <div className="campos-autenticacao">
                 <CampoRotuloFlutuante id="usuario-api" rotulo="Usuário" valor="reserva-web" somenteLeitura />
                 <CampoRotuloFlutuante
@@ -142,21 +148,21 @@ export function PainelComunidade({ aoVoltar }) {
                   aoAlterar={definirSenhaDigitada}
                 />
               </div>
-              <BotaoFluxo type="submit"><TextoBlurReveal as="span">Consultar pontos</TextoBlurReveal></BotaoFluxo>
+              <BotaoFluxo type="submit">Consultar pontos</BotaoFluxo>
             </form>
           ) : (
             <div className="linha-acoes-api">
-              <TextoBlurReveal as="p">Usuário HTTP Basic: reserva-web; a senha permanece apenas nesta sessão.</TextoBlurReveal>
+              <p>Usuário HTTP Basic: reserva-web; a senha permanece apenas nesta sessão.</p>
               <BotaoFluxo type="button" onClick={() => { definirSenha(''); definirSenhaDigitada(''); limparPontos() }}>
-                <TextoBlurReveal as="span">Trocar senha</TextoBlurReveal>
+                Trocar senha
               </BotaoFluxo>
               <BotaoFluxo type="button" onClick={() => carregarPontos().catch(() => {})}>
-                <TextoBlurReveal as="span">Atualizar pontos</TextoBlurReveal>
+                Atualizar pontos
               </BotaoFluxo>
             </div>
           )}
 
-          {erroPontos && <TextoBlurReveal as="p" className="form-error" role="alert">{erroPontos}</TextoBlurReveal>}
+          {erroPontos && <p className="form-error" role="alert">{erroPontos}</p>}
           {senha && (
             <TabelaMonitoramento
               pontos={pontos}
@@ -168,16 +174,16 @@ export function PainelComunidade({ aoVoltar }) {
         </section>
 
         <footer className="rodape-painel">
-          <TextoBlurReveal as="span">Watery — FIAP Global Solution CitizenTech 2026</TextoBlurReveal>
-          <TextoBlurReveal as="span">Telemetria e pontos consultados pela API informada pela equipe.</TextoBlurReveal>
+          <span>Watery — FIAP Global Solution CitizenTech 2026</span>
+          <span>Telemetria e pontos consultados pela API informada pela equipe.</span>
         </footer>
       </main>
 
       {aviso && (
         <div className="aviso-flutuante" role="status">
-          <TextoBlurReveal as="span">{aviso}</TextoBlurReveal>
+          <span>{aviso}</span>
           <BotaoFluxo type="button" onClick={() => definirAviso('')}>
-            <TextoBlurReveal as="span">Fechar aviso</TextoBlurReveal>
+            Fechar aviso
           </BotaoFluxo>
         </div>
       )}

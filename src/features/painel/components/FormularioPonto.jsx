@@ -57,13 +57,13 @@ export function FormularioPonto({ ponto, aoSalvar, aoFechar, salvando = false })
     <div className="modal-backdrop" role="presentation" onMouseDown={(evento) => evento.target === evento.currentTarget && aoFechar()}>
       <section className="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-formulario">
         <BotaoFluxo className="modal-close" type="button" onClick={aoFechar}>
-          <TextoBlurReveal as="span">Fechar</TextoBlurReveal>
+          Fechar
         </BotaoFluxo>
-        <TextoBlurReveal as="span" className="eyebrow">PONTOS DA API</TextoBlurReveal>
+        <span className="eyebrow">PONTOS DA API</span>
         <TextoBlurReveal as="h2" id="titulo-formulario">{ponto ? 'Editar ponto' : 'Cadastrar ponto'}</TextoBlurReveal>
-        <TextoBlurReveal as="p" className="modal-intro">
+        <p className="modal-intro">
           Os dados são enviados à API da equipe. Não informe nomes ou endereços pessoais.
-        </TextoBlurReveal>
+        </p>
         <form onSubmit={enviarFormulario} noValidate>
           <CampoRotuloFlutuante
             id="id-ponto"
@@ -100,13 +100,13 @@ export function FormularioPonto({ ponto, aoSalvar, aoFechar, salvando = false })
             placeholder="reserva-001"
             obrigatorio
           />
-          {mensagemErro && <TextoBlurReveal as="p" className="form-error" role="alert">{mensagemErro}</TextoBlurReveal>}
+          {mensagemErro && <p className="form-error" role="alert">{mensagemErro}</p>}
           <div className="modal-actions">
             <BotaoFluxo className="button button-light" type="button" onClick={aoFechar}>
-              <TextoBlurReveal as="span">Cancelar</TextoBlurReveal>
+              Cancelar
             </BotaoFluxo>
             <BotaoFluxo className="button button-primary" type="submit" disabled={salvando}>
-              <TextoBlurReveal as="span">{salvando ? 'Enviando…' : 'Salvar ponto'}</TextoBlurReveal>
+              {salvando ? 'Enviando…' : 'Salvar ponto'}
             </BotaoFluxo>
           </div>
         </form>
