@@ -1,36 +1,45 @@
 /** Apresenta a abertura da apresentação Watery e encaminha ao painel. */
-import { TextoBlurReveal } from '../../../shared/components/ui/TextoBlurReveal'
-import { TextoOndaGradiente } from '../../../shared/components/ui/TextoOndaGradiente'
+import { useTelemetriaReserva } from '../../painel/hooks/useTelemetriaReserva'
+import { VisaoTelemetria } from '../components/VisaoTelemetria'
+import { TextoSubidaReveal } from '../../../shared/components/ui/TextoSubidaReveal'
 import { BotaoFluxo } from '../../../shared/components/ui/BotaoFluxo'
 
 /** Apresenta a abertura da apresentação Watery e encaminha ao painel. */
 export function AberturaApresentacao({ aoAbrirPainel }) {
+  const { telemetria, carregandoTelemetria, erroTelemetria, atualizarTelemetria } = useTelemetriaReserva()
+
   return (
-    <section id="inicio" className="hero mx-auto flex max-w-6xl flex-col items-center px-5 py-24 md:px-8 md:py-36">
-      <div className="hero-conteudo flex max-w-3xl flex-col items-center">
+    <section id="inicio" className="hero mx-auto grid max-w-7xl items-center gap-14 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-[1.02fr_.98fr] lg:gap-12">
+      <div className="hero-conteudo flex max-w-2xl flex-col items-start">
         <p className="sobretitulo">
-          <span className="ponto-agua" aria-hidden="true" />
-          <TextoBlurReveal as="span">TECNOLOGIA PARA CUIDAR DO QUE É ESSENCIAL</TextoBlurReveal>
+          TECNOLOGIA UNIDA À POPULAÇÃO E AO MEIO AMBIENTE
         </p>
         <h1 className="titulo-hero mt-6">
-          <TextoBlurReveal as="span" className="titulo-fragmento">A água que sustenta o dia a dia, </TextoBlurReveal>
-          <TextoOndaGradiente>vista com clareza.</TextoOndaGradiente>
+          <TextoSubidaReveal as="span" className="titulo-fragmento">A água que sustenta o dia a dia, </TextoSubidaReveal>
+          <TextoSubidaReveal as="span" className="titulo-frase-final" delay={180}>vista com clareza.</TextoSubidaReveal>
         </h1>
-        <TextoBlurReveal as="p" className="descricao-hero mt-6">
-          Watery transforma leituras de uma reserva doméstica em informação acessível para que famílias acompanhem o consumo e se preparem melhor.
-        </TextoBlurReveal>
-        <div className="acoes-hero mt-8 flex flex-wrap items-center justify-center gap-5">
+        <p className="descricao-hero mt-6">
+          A Reserva Watery transforma leituras de uma reserva doméstica em informação acessível para que famílias acompanhem o consumo e se preparem melhor.
+        </p>
+        <div className="acoes-hero mt-8 flex flex-wrap items-center gap-4">
           <BotaoFluxo className="botao-primario" type="button" onClick={aoAbrirPainel}>
-            <TextoOndaGradiente>Acompanhar uma reserva</TextoOndaGradiente>
+            Acompanhar reserva
           </BotaoFluxo>
           <a href="#desafio" className="link-textual">
-            <TextoBlurReveal as="span">Conhecer a proposta ↓</TextoBlurReveal>
+            Conhecer a proposta
           </a>
         </div>
-        <TextoBlurReveal as="p" className="nota-hero mt-6">
-          Protótipo acadêmico · leitura por API REST
-        </TextoBlurReveal>
+        <p className="nota-hero mt-7">Por uma vida melhor e um planeta mais saudável. </p>
+        <p className="nota-hero mt-7">POWERED BY SMARTECH GROUP.</p>
       </div>
+
+      <VisaoTelemetria
+        telemetria={telemetria}
+        carregando={carregandoTelemetria}
+        erro={erroTelemetria}
+        aoAtualizar={atualizarTelemetria}
+        aoAbrirPainel={aoAbrirPainel}
+      />
     </section>
   )
 }
