@@ -1,88 +1,99 @@
 # Watery
 
-Protótipo acadêmico da Global Solution CitizenTech 2026.2. A Watery ajuda famílias que dependem de reservatórios a acompanhar leituras de telemetria e propõe organizar evidências comunitárias sobre interrupções de abastecimento.
+Aplicação acadêmica da Global Solution CitizenTech 2026.2 para acompanhar a telemetria de um reservatório e administrar pontos monitorados. A interface reúne uma landing page explicativa e um painel conectado à API REST do projeto.
 
-## O que esta versão faz
+## Funcionalidades
 
-- Apresenta o problema, a proposta, os limites do escopo e os ODS relacionados (6, 10, 11 e 13).
-- Consulta telemetria pública da reserva principal por API REST.
-- Oferece login HTTP Basic para consultar, cadastrar, editar e excluir pontos monitorados.
-- Mantém senha apenas em memória durante a tela do painel e trata leituras ausentes ou inválidas.
-- Usa React, Vite, Tailwind CSS v4 e componentes reutilizáveis, com lógica organizada em hooks e serviço HTTP.
-
-A aplicação não se conecta diretamente ao FIWARE nem ao Orion. A tela de painel implementa gestão de pontos conforme a API existente do grupo; não representa um CRUD de residências e ocorrências, nem um mapa/ranking por rua.
-
-## Requisitos das disciplinas
-
-A estrutura atual demonstra React com Vite, Tailwind CSS, mais de oito componentes reutilizáveis, `useState`, `useEffect`, dois custom hooks, separação entre páginas, estado e chamadas HTTP e operações GET/POST/PATCH/DELETE do recurso de pontos. O documento `AI.md` descreve o apoio de IA desta versão.
-
-Itens que ainda exigem ação da equipe antes da entrega:
-
-- Registrar pelo menos 15 commits significativos no histórico Git. Não criar commits artificiais.
-- Validar o CRUD com a API e as credenciais fornecidas pela equipe.
-- Confirmar com os professores se o escopo de pontos atende ao requisito de CRUD, pois o briefing sugere residência e ocorrência.
-- Se o grupo mantiver o mapa comunitário, implementar agregação anonimizada com limiar mínimo de casas e verificar privacidade. Essa funcionalidade não está implementada nesta versão.
-- Completar a ficha CitizenTech com cidade/bairro e cidadão confirmado por entrevista. Não inserir dados pessoais reais.
-- Revisar AI.md com as interações e validações realizadas por todos os integrantes.
-- Preparar ZIP, deploy e acessos de escrita ao repositório para os professores.
+- Landing page com apresentação do desafio, proposta, integração, decisões de privacidade, impacto e etapas do projeto.
+- Painel com leitura atual do reservatório, nível em litros, autonomia, estado e horário da última atualização.
+- Tratamento visual para valores indisponíveis e leituras inválidas.
+- Consulta e operações de criação, edição e exclusão de pontos monitorados.
+- Formulário protegido por autenticação HTTP Basic; a senha é informada na tela e mantida apenas em memória durante a sessão.
+- Componentes reutilizáveis, estados de carregamento e erro, navegação responsiva e suporte a movimento reduzido.
 
 ## Tecnologias
 
-- Node.js
-- pnpm
-- React 19
+- React 19 com JSX
 - Vite
 - Tailwind CSS 4
+- ESLint
+
+## Requisitos
+
+- Node.js compatível com a versão de Vite indicada em `package.json`.
+- npm.
 
 ## Instalação e execução
 
 ```bash
-pnpm install
-cp .env.example .env
-pnpm dev
+npm install
+npm run dev
 ```
 
-Scripts disponíveis: `pnpm dev`, `pnpm build`, `pnpm lint` e `pnpm preview`.
+Os comandos disponíveis são `npm run dev`, `npm run build`, `npm run lint` e `npm run preview`.
 
-## API
+## Integração com a API
 
-O navegador usa caminhos relativos sob `/reserva/api`. O Vite encaminha esses caminhos à API da equipe durante o desenvolvimento e `vercel.json` define o rewrite do deploy.
+A aplicação usa caminhos relativos sob `/reserva/api`. Durante o desenvolvimento, o proxy do Vite encaminha as chamadas para o endereço configurado em `API_PROXY_TARGET`; no deploy, `vercel.json` define o rewrite equivalente.
 
-| Operação | Caminho | Acesso |
+| Operação | Caminho | Autenticação |
 | --- | --- | --- |
-| Consultar telemetria | `GET /reserva/api/telemetria/reserva-001` | Público |
-| Consultar pontos | `GET /reserva/api/pontos` | HTTP Basic |
+| Consultar telemetria | `GET /reserva/api/telemetria/reserva-001` | Pública |
+| Listar pontos | `GET /reserva/api/pontos` | HTTP Basic |
 | Criar ponto | `POST /reserva/api/pontos` | HTTP Basic |
 | Atualizar ponto | `PATCH /reserva/api/pontos/{id}` | HTTP Basic |
 | Excluir ponto | `DELETE /reserva/api/pontos/{id}` | HTTP Basic |
 
-A senha não é gravada no armazenamento do navegador. A disponibilidade e o comportamento da API precisam ser confirmados pela equipe.
+Configure o destino do proxy conforme o ambiente da equipe. Não armazene senha ou credenciais em variáveis `VITE_*`: elas são incorporadas ao código entregue ao navegador. O usuário e a senha da API são digitados no painel e não são persistidos. O contrato, os campos e os detalhes da autenticação estão em [`src/features/painel/services/API.md`](src/features/painel/services/API.md).
 
-## Arquitetura do código
+## Estrutura do projeto
 
-O código está agrupado por função do sistema. A landing page foi dividida em componentes independentes para que cada seção seja encontrada e editada sem percorrer um único arquivo extenso.
+```text
+src/
+├── app/                         # Composição e navegação da aplicação
+├── features/
+│   ├── landing/                  # Página institucional e suas seções
+│   │   ├── components/           # Abertura da marca, telemetria e progresso
+│   │   ├── sections/             # Blocos editáveis da landing page
+│   │   └── styles/               # Estilos da landing page
+│   └── painel/                   # Painel, componentes, hooks, API e estilos
+└── shared/                      # Componentes e estilos compartilhados
+```
 
-| Pasta / arquivo | Responsabilidade |
+### Onde editar a landing page
+
+A ordem das seções e o cabeçalho estão em `src/features/landing/PaginaInicial.jsx`. Edite o texto de cada bloco no arquivo correspondente:
+
+| Bloco | Arquivo |
 | --- | --- |
-| `src/main.jsx` | Inicialização do React e importação dos estilos globais. |
-| `src/app/Aplicacao.jsx` | Navegação entre landing page e painel. |
-| `src/features/landing/PaginaInicial.jsx` | Ordem das seções, cabeçalho e vida da landing page. |
-| `src/features/landing/sections/AberturaApresentacao.jsx` | Seção inicial e chamadas para ação. |
-| `src/features/landing/sections/SecaoDesafio.jsx` | Desafio cidadão abordado. |
-| `src/features/landing/sections/SecaoProposta.jsx` | Etapas da proposta. |
-| `src/features/landing/sections/SecaoIntegracaoApi.jsx` | Integração e caminhos da API. |
-| `src/features/landing/sections/SecaoDecisoes.jsx` | Decisões de privacidade e comunicação. |
-| `src/features/landing/sections/SecaoImpacto.jsx` | Impacto e ODS relacionados. |
-| `src/features/landing/sections/SecaoEtapas.jsx` | Roadmap do projeto. |
-| `src/features/landing/sections/RodapeApresentacao.jsx` | Rodapé da apresentação. |
-| `src/features/landing/styles/landing.css` | Identidade visual da landing page. |
-| `src/features/painel/` | Painel, formulários, tabela, estado e integração REST. |
-| `src/shared/components/` | Marca e componentes visuais compartilhados, inclusive os padrões Spell UI. |
-| `src/shared/styles/base.css` | Tailwind CSS e estilos e tokens globais. |
-| `eslint.config.js` | Regras ESLint para JavaScript, JSX e hooks do React. |
+| Abertura e chamada para o painel | `src/features/landing/sections/AberturaApresentacao.jsx` |
+| Desafio | `src/features/landing/sections/SecaoDesafio.jsx` |
+| Proposta | `src/features/landing/sections/SecaoProposta.jsx` |
+| Integração com a API | `src/features/landing/sections/SecaoIntegracaoApi.jsx` |
+| Decisões de privacidade | `src/features/landing/sections/SecaoDecisoes.jsx` |
+| Impacto e ODS | `src/features/landing/sections/SecaoImpacto.jsx` |
+| Etapas do projeto | `src/features/landing/sections/SecaoEtapas.jsx` |
+| Chamada final e rodapé | `src/features/landing/sections/RodapeApresentacao.jsx` |
 
-### Ambiente da API
+Os estilos desses blocos ficam em `src/features/landing/styles/landing.css`. A abertura animada da marca está em `src/features/landing/components/AberturaMarca.jsx`; a leitura apresentada na landing page está em `VisaoTelemetria.jsx`, e o indicador de progresso está em `ProgressoLeitura.jsx`.
 
-Copie `.env.example` para `.env` e ajuste `VITE_API_BASE_URL` e `API_PROXY_TARGET` para o ambiente autorizado pela equipe. Não coloque senhas, tokens ou credenciais em variáveis `VITE_*`, pois elas podem ser expostas no navegador. O usuário HTTP Basic e a senha de gestão continuam sendo informados na tela e guardados apenas na memória da sessão.
+### Organização do painel
 
-O projeto usa JSX com React e Vite. O ESLint valida os hooks e variáveis; as configurações de `.vscode/` sugerem a extensão oficial do ESLint e mantêm indentação de dois espaços.
+- `src/features/painel/PainelComunidade.jsx`: composição da tela do painel.
+- `src/features/painel/components/`: medidor, histórico, mensagens, tabela e formulário de pontos.
+- `src/features/painel/hooks/`: carregamento e estado de telemetria e pontos monitorados.
+- `src/features/painel/services/apiReserva.js`: chamadas HTTP para a API.
+- `src/features/painel/styles/dashboard.css`: estilos do painel.
+
+## Verificações
+
+```bash
+npm run lint
+npm run build
+```
+
+As chamadas protegidas dependem de credenciais fornecidas pela equipe e de acesso ao serviço. Consulte a documentação da API antes de validar o CRUD em outro ambiente.
+
+## Contexto acadêmico
+
+O projeto demonstra composição de interface com React, hooks de estado e efeitos, hooks personalizados, separação entre visualização e acesso a dados, integração REST e componentes reutilizáveis. `AI.md` registra o uso de ferramentas de IA no desenvolvimento.
