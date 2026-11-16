@@ -1,0 +1,70 @@
+/* Vinheta curta com paleta sólida coral, azul e branco. */
+.abertura-marca {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  justify-items: center;
+  gap: clamp(38px, 8vh, 76px);
+  overflow: hidden;
+  background: #0d2d45;
+  color: #fff;
+  animation: abertura-fundo 420ms ease-out both;
+}
+
+.abertura-marca-frase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.8vw, 22px);
+  margin: 0;
+  padding: 24px;
+  font-size: clamp(27px, 6.1vw, 76px);
+  font-weight: 650;
+  letter-spacing: -.065em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.abertura-marca-frase span {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: abertura-palavra 760ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.abertura-marca-coral { color: #ff8978; animation-delay: 120ms !important; }
+.abertura-marca-branco { color: #fff; animation-delay: 330ms !important; }
+.abertura-marca-azul { color: #7bb8e5; animation-delay: 540ms !important; }
+
+.abertura-marca-continuar {
+  min-height: 42px;
+  border: 1px solid #a8c8dd;
+  border-radius: 6px;
+  background: transparent;
+  padding: 0 15px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0;
+  animation: abertura-palavra 640ms cubic-bezier(.22, 1, .36, 1) 920ms both;
+  transition: background-color 420ms ease, border-color 420ms ease;
+}
+
+.abertura-marca-continuar:hover { border-color: #fff; background: #ffffff12; }
+.abertura-marca-continuar:focus-visible { outline: 3px solid #ff8978; outline-offset: 4px; }
+.abertura-marca-encerrando { animation: fechar-abertura 450ms ease-in both; }
+
+@keyframes abertura-fundo { from { opacity: 0; } to { opacity: 1; } }
+@keyframes abertura-palavra { to { opacity: 1; transform: translateY(0); } }
+@keyframes fechar-abertura { to { opacity: 0; visibility: hidden; } }
+
+@media (max-width: 580px) {
+  .abertura-marca-frase { flex-direction: column; gap: 10px; font-size: clamp(32px, 12vw, 58px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abertura-marca, .abertura-marca-frase span, .abertura-marca-continuar, .abertura-marca-encerrando { animation: none; transition: none; }
+  .abertura-marca-frase span, .abertura-marca-continuar { opacity: 1; transform: none; }
+}
