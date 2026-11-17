@@ -46,7 +46,7 @@
 .historico-leituras h2 { margin: 0; color: var(--azul-escuro); font-size: 20px; font-weight: 620; }
 .historico-leituras > p { margin-top: 14px; color: var(--texto-suave); font-size: 12px; }
 .historico-leituras ol { margin: 18px 0 0; padding: 0; border-top: 1px solid var(--linha); list-style: none; }
-.historico-leituras li { display: grid; grid-template-columns: 180px 1fr 130px; align-items: center; gap: 16px; border-bottom: 1px solid var(--linha); padding: 15px 8px; transition: background-color 420ms ease; }
+.historico-leituras li { display: grid; grid-template-columns: 180px 1fr 1fr 130px; align-items: center; gap: 16px; border-bottom: 1px solid var(--linha); padding: 15px 8px; transition: background-color 420ms ease; }
 .historico-leituras time, .historico-leituras li strong { color: var(--azul-escuro); font-size: 12px; font-weight: 620; }
 .historico-leituras li span { color: var(--texto-suave); font-size: 11px; }
 .secao-pontos { border-bottom: 1px solid var(--linha); padding: 46px 0; }

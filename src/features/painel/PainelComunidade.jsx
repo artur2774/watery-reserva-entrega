@@ -21,7 +21,15 @@ export function PainelComunidade({ aoVoltar }) {
   const [pontoEmEdicao, definirPontoEmEdicao] = useState(null)
   const [aviso, definirAviso] = useState('')
   const [salvandoPonto, definirSalvandoPonto] = useState(false)
-  const { telemetria, historico, carregandoTelemetria, erroTelemetria, atualizarTelemetria } = useTelemetriaReserva()
+  const {
+    telemetria,
+    historico,
+    carregandoTelemetria,
+    erroTelemetria,
+    atualizarTelemetria,
+    carregandoHistorico,
+    erroHistorico,
+  } = useTelemetriaReserva({ incluirHistorico: true })
   const estadoPontos = usePontosMonitorados(senha)
   const { pontos, carregandoPontos, erroPontos, carregarPontos, salvarPonto, removerPonto, limparPontos } = estadoPontos
 
@@ -114,7 +122,7 @@ export function PainelComunidade({ aoVoltar }) {
         </section>
 
         <MedidorNivel volume={telemetria?.volumeUtilL} capacidade={pontoDoDispositivo?.capacidadeUtilL} />
-        <HistoricoLeituras leituras={historico} />
+        <HistoricoLeituras leituras={historico} carregando={carregandoHistorico} erro={erroHistorico} />
 
         <AvisoDados />
 

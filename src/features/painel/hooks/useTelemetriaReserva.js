@@ -1,32 +1,48 @@
 /** Isola busca, carregamento e falhas da telemetria da camada visual. */
 import { useCallback, useEffect, useState } from 'react'
-import { buscarTelemetriaReserva } from '../services/apiReserva'
+import { buscarHistoricoTelemetriaReserva, buscarTelemetriaReserva } from '../services/apiReserva'
 
 /** Mantém a última leitura em estado e atualiza ao montar ou por solicitação. */
-export function useTelemetriaReserva() {
+export function useTelemetriaReserva({ incluirHistorico = false } = {}) {
   const [telemetria, definirTelemetria] = useState(null)
   const [historico, definirHistorico] = useState([])
   const [carregandoTelemetria, definirCarregandoTelemetria] = useState(true)
   const [erroTelemetria, definirErroTelemetria] = useState('')
+  const [carregandoHistorico, definirCarregandoHistorico] = useState(incluirHistorico)
+  const [erroHistorico, definirErroHistorico] = useState('')
 
-  /** Consulta a API pública e converte falhas em uma mensagem para a tela. */
+  /** Atualiza a leitura atual e, opcionalmente, o histórico público do painel. */
   const atualizarTelemetria = useCallback(async () => {
     definirCarregandoTelemetria(true)
     definirErroTelemetria('')
-
-    try {
-      const leitura = await buscarTelemetriaReserva()
-      definirTelemetria(leitura)
-      definirHistorico((leiturasAtuais) => {
-        if (leiturasAtuais.some(({ timestamp }) => timestamp === leitura.timestamp)) return leiturasAtuais
-        return [leitura, ...leiturasAtuais].slice(0, 8)
-      })
-    } catch {
-      definirErroTelemetria('Não foi possível obter a leitura. Confira a conexão com a API e atualize.')
-    } finally {
-      definirCarregandoTelemetria(false)
+    if (incluirHistorico) {
+      definirCarregandoHistorico(true)
+      definirErroHistorico('')
     }
-  }, [])
+
+    const resultados = await Promise.allSettled([
+      buscarTelemetriaReserva(),
+      ...(incluirHistorico ? [buscarHistoricoTelemetriaReserva()] : []),
+    ])
+
+    const resultadoTelemetria = resultados[0]
+    if (resultadoTelemetria.status === 'fulfilled') {
+      definirTelemetria(resultadoTelemetria.value)
+    } else {
+      definirErroTelemetria('Não foi possível obter a leitura. Confira a conexão com a API e atualize.')
+    }
+
+    if (incluirHistorico) {
+      const resultadoHistorico = resultados[1]
+      if (resultadoHistorico.status === 'fulfilled') {
+        definirHistorico(resultadoHistorico.value)
+      } else {
+        definirErroHistorico('Não foi possível carregar o histórico. Tente atualizar novamente.')
+      }
+      definirCarregandoHistorico(false)
+    }
+    definirCarregandoTelemetria(false)
+  }, [incluirHistorico])
 
   /** Dispara a consulta ao montar e cancela o disparo se a tela for fechada. */
   useEffect(() => {
@@ -34,5 +50,13 @@ export function useTelemetriaReserva() {
     return () => window.clearTimeout(temporizadorInicial)
   }, [atualizarTelemetria])
 
-  return { telemetria, historico, carregandoTelemetria, erroTelemetria, atualizarTelemetria }
+  return {
+    telemetria,
+    historico,
+    carregandoTelemetria,
+    erroTelemetria,
+    atualizarTelemetria,
+    carregandoHistorico,
+    erroHistorico,
+  }
 }
