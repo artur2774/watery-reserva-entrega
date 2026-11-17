@@ -7,6 +7,7 @@
   background: #fff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.008em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
