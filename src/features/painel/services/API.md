@@ -20,6 +20,7 @@ resultados e as ações.
 | Função do serviço | Método e caminho | Autenticação |
 | --- | --- | --- |
 | `buscarTelemetriaReserva` | `GET /reserva/api/telemetria/reserva-001` | Pública |
+| `buscarHistoricoTelemetriaReserva` | `GET /reserva/api/telemetria/reserva-001/historico?limite=50` | Pública |
 | `listarPontosReserva` | `GET /reserva/api/pontos` | HTTP Basic |
 | `criarPontoReserva` | `POST /reserva/api/pontos` | HTTP Basic |
 | `atualizarPontoReserva` | `PATCH /reserva/api/pontos/{id}` | HTTP Basic |
@@ -36,6 +37,8 @@ Edições enviam apenas diferenças entre `nome`, `capacidadeUtilL` e `deviceId`
 - Valores `null` ou ausentes de vazão/autonomia são apresentados como
   “Indisponível”.
 - O estado `invalido` é apresentado como “Leitura inválida”.
+- Ao abrir o painel e atualizar a leitura, a interface consulta o histórico público, com até 50 registros da mais recente à mais antiga. O card “Última leitura” continua consultando a rota atual.
+- O histórico vazio apresenta “Nenhuma leitura registrada”. A rota de histórico não é chamada pela landing page.
 - A lista de pontos aceita `[]` como uma resposta válida sem cadastros.
 - O serviço aceita respostas `204` sem conteúdo e converte HTTP não exitoso em
   erro para os hooks apresentarem uma mensagem contextual.

@@ -39,6 +39,7 @@ A aplicação usa caminhos relativos sob `/reserva/api`. Durante o desenvolvimen
 | Operação | Caminho | Autenticação |
 | --- | --- | --- |
 | Consultar telemetria | `GET /reserva/api/telemetria/reserva-001` | Pública |
+| Consultar histórico de telemetria | `GET /reserva/api/telemetria/reserva-001/historico?limite=50` | Pública |
 | Listar pontos | `GET /reserva/api/pontos` | HTTP Basic |
 | Criar ponto | `POST /reserva/api/pontos` | HTTP Basic |
 | Atualizar ponto | `PATCH /reserva/api/pontos/{id}` | HTTP Basic |

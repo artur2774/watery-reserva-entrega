@@ -63,6 +63,21 @@ export async function buscarTelemetriaReserva() {
   return verificarResposta(resposta)
 }
 
+/** Busca até 50 leituras públicas, da mais recente à mais antiga. */
+export async function buscarHistoricoTelemetriaReserva() {
+  const resposta = await requisitarComLimite(
+    `${CAMINHO_API}/telemetria/reserva-001/historico?limite=50`,
+    { headers: { Accept: 'application/json' } },
+  )
+  const leituras = await verificarResposta(resposta)
+
+  if (!Array.isArray(leituras)) {
+    throw new Error('A API retornou um formato inválido para o histórico.')
+  }
+
+  return leituras
+}
+
 /** Busca os pontos cadastrados usando HTTP Basic Auth. */
 export async function listarPontosReserva(senha) {
   const resposta = await requisitarComLimite(`${CAMINHO_API}/pontos`, { headers: criarCabecalhosAutenticados(senha) })
