@@ -66,7 +66,7 @@ export async function buscarTelemetriaReserva() {
 /** Busca até 50 leituras públicas, da mais recente à mais antiga. */
 export async function buscarHistoricoTelemetriaReserva() {
   const resposta = await requisitarComLimite(
-    `${CAMINHO_API}/telemetria/reserva-001/historico/limite=50`,
+    `${CAMINHO_API}/telemetria/reserva-001/historico?limite=50`,
     { headers: { Accept: 'application/json' } },
   )
   const leituras = await verificarResposta(resposta)

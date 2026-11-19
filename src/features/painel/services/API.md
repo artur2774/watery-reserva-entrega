@@ -20,7 +20,7 @@ resultados e as ações.
 | Função do serviço | Método e caminho | Autenticação |
 | --- | --- | --- |
 | `buscarTelemetriaReserva` | `GET /reserva/api/telemetria/reserva-001` | Pública |
-| `buscarHistoricoTelemetriaReserva` | `GET /reserva/api/telemetria/reserva-001/historico/limite=50` | Pública |
+| `buscarHistoricoTelemetriaReserva` | `GET /reserva/api/telemetria/reserva-001/historico?limite=50` | Pública |
 | `listarPontosReserva` | `GET /reserva/api/pontos` | HTTP Basic |
 | `criarPontoReserva` | `POST /reserva/api/pontos` | HTTP Basic |
 | `atualizarPontoReserva` | `PATCH /reserva/api/pontos/{id}` | HTTP Basic |
