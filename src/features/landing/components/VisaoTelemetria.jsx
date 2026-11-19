@@ -1,3 +1,4 @@
+import { formatarEstado } from '../../../shared/telemetria'
 /** Prévia resumida da leitura real, com estados explícitos e caminho para o painel. */
 import { LogoWatery } from '../../../shared/components/LogoWatery'
 
@@ -52,7 +53,7 @@ export function VisaoTelemetria({ telemetria, carregando, erro, aoAtualizar, aoA
           <div className="destaque-volume">
             <div><p>Volume disponível</p><strong>{formatarValor(telemetria?.volumeUtilL, 'L')}</strong></div>
             <span className={`estado-leitura estado-${telemetria?.estado || 'desconhecido'}`}>
-              {telemetria?.estado === 'normal' ? 'Normal' : telemetria?.estado === 'invalido' ? 'Leitura inválida' : 'Indisponível'}
+              {formatarEstado(telemetria?.estado)}
             </span>
           </div>
           <dl className="metricas-telemetria">

@@ -121,3 +121,8 @@ td small { margin-top: 5px; color: var(--texto-suave); font-size: 10px; }
 @keyframes entrada-painel { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes aparecer-fundo { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
+.historico-paginacao { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin-top: 18px; }
+.historico-paginacao span { color: var(--texto-suave); font-size: 12px; }
+.historico-paginacao button { min-height: 44px; border: 1px solid #b9cbd7; border-radius: 8px; background: #fff; padding: 0 16px; color: var(--azul); cursor: pointer; }
+.historico-paginacao button:disabled { opacity: .45; cursor: default; }
