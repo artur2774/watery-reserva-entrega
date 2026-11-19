@@ -1,5 +1,11 @@
+import { useState } from 'react'
+import { formatarEstado, paginarLeituras } from '../../../shared/telemetria'
+
 /** Apresenta o histórico retornado pela API em ordem cronológica inversa. */
 export function HistoricoLeituras({ leituras, carregando = false, erro = '' }) {
+  const [pagina, definirPagina] = useState(1)
+  const { paginaAtual, totalPaginas, registros } = paginarLeituras(leituras, pagina)
+
   return (
     <section className="historico-leituras" aria-labelledby="titulo-historico">
       <h2 id="titulo-historico">Histórico de leituras</h2>
@@ -9,29 +15,30 @@ export function HistoricoLeituras({ leituras, carregando = false, erro = '' }) {
       ) : carregando ? (
         <p role="status">Carregando histórico…</p>
       ) : leituras.length ? (
-        <ol>
-          {leituras.map((leitura) => (
-            <li key={`${leitura.id ?? leitura.deviceId ?? 'reserva'}-${leitura.timestamp}`}>
-              <time dateTime={leitura.timestamp}>{formatarData(leitura.timestamp)}</time>
-              <strong>{leitura.volumeUtilL == null ? 'Indisponível' : `${leitura.volumeUtilL} L`}</strong>
-              <span>{leitura.autonomiaH == null ? 'Indisponível' : `${leitura.autonomiaH} h de autonomia`}</span>
-              <span>{formatarEstado(leitura.estado)}</span>
-            </li>
-          ))}
-        </ol>
+        <>
+          <ol id="lista-historico">
+            {registros.map((leitura) => (
+              <li key={`${leitura.id ?? leitura.deviceId ?? 'reserva'}-${leitura.timestamp}`}>
+                <time dateTime={leitura.timestamp}>{formatarData(leitura.timestamp)}</time>
+                <strong>{leitura.volumeUtilL == null ? 'Indisponível' : `${leitura.volumeUtilL} L`}</strong>
+                <span>{leitura.autonomiaH == null ? 'Indisponível' : `${leitura.autonomiaH} h de autonomia`}</span>
+                <span>{formatarEstado(leitura.estado)}</span>
+              </li>
+            ))}
+          </ol>
+          <nav className="historico-paginacao" aria-label="Páginas do histórico">
+            <button type="button" aria-controls="lista-historico" disabled={paginaAtual === 1}
+              onClick={() => definirPagina(paginaAtual - 1)}>Anterior</button>
+            <span>Página {paginaAtual} de {totalPaginas} · {leituras.length} leituras</span>
+            <button type="button" aria-controls="lista-historico" disabled={paginaAtual === totalPaginas}
+              onClick={() => definirPagina(paginaAtual + 1)}>Próxima</button>
+          </nav>
+        </>
       ) : (
         <p role="status">Nenhuma leitura registrada</p>
       )}
     </section>
   )
-}
-
-/** Traduz os estados da telemetria para rótulos claros na interface. */
-function formatarEstado(estado) {
-  if (estado === 'invalido') return 'Leitura inválida'
-  if (estado == null || estado === '') return 'Indisponível'
-
-  return estado === 'normal' ? 'Normal' : estado
 }
 
 /** Formata um horário de telemetria sem presumir um fuso da API. */

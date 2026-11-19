@@ -1,3 +1,4 @@
+import { formatarEstado } from '../../shared/telemetria'
 /** Painel ligado à telemetria pública e ao CRUD protegido da API Reserva. */
 import { useState } from 'react'
 import { AvisoDados } from './components/AvisoDados'
@@ -68,9 +69,7 @@ export function PainelComunidade({ aoVoltar }) {
 
   /** Formata dados ausentes e sinaliza leitura inválida conforme o contrato remoto. */
   const exibirValor = (valor, unidade = '') => valor == null ? 'Indisponível' : `${valor}${unidade}`
-  const rotuloEstado = telemetria?.estado === 'invalido'
-    ? 'Leitura inválida'
-    : telemetria?.estado === 'normal' ? 'Normal' : telemetria?.estado ?? 'Indisponível'
+  const rotuloEstado = formatarEstado(telemetria?.estado)
   const valoresResumo = [
     { rotulo: 'Volume útil', valor: exibirValor(telemetria?.volumeUtilL, ' L') },
     { rotulo: 'Autonomia', valor: exibirValor(telemetria?.autonomiaH, ' h') },
